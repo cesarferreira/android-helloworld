@@ -22,7 +22,25 @@ android {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
             outputs.upToDateWhen { false }
             showStandardStreams = true
-        }
+            showExceptions true
+                exceptionFormat "full"
+                showCauses true
+                showStackTraces true
+
+                debug {
+                    events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+                    exceptionFormat "full"
+                }
+
+                afterSuite { desc, result ->
+                    if (!desc.parent) {
+                        def output = "$project.name test result: [TESTS: ${result.testCount}, PASSED: ${result.successfulTestCount}, FAILED: ${result.failedTestCount}, SKIPPED: ${result.skippedTestCount}]"
+                        def startItem = '###  ', endItem = '  ###'
+                        def repeatLength = startItem.length() + output.length() + endItem.length()
+                        println('\n' + ('#' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('#' * repeatLength))
+                    }
+                }
+            }
     }
 }
 
