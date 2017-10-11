@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName '1.0'
     }
@@ -16,40 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-            outputs.upToDateWhen { false }
-            showStandardStreams = true
-            showExceptions true
-                exceptionFormat "full"
-                showCauses true
-                showStackTraces true
-
-                debug {
-                    events "started", "passed", "skipped", "failed", "standardOut", "standardError"
-                    exceptionFormat "full"
-                }
-
-                afterSuite { desc, result ->
-                    if (!desc.parent) {
-                        def output = "$project.name test result: [TESTS: ${result.testCount}, PASSED: ${result.successfulTestCount}, FAILED: ${result.failedTestCount}, SKIPPED: ${result.skippedTestCount}]"
-                        def startItem = '###  ', endItem = '  ###'
-                        def repeatLength = startItem.length() + output.length() + endItem.length()
-                        println('\n' + ('#' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('#' * repeatLength))
-                    }
-                }
-            }
-    }
 }
 
 dependencies {
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
 
 }
