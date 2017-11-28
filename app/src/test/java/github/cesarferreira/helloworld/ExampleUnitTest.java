@@ -36,7 +36,7 @@ public class ExampleUnitTest {
 
     @Test
     public void addition_isIncorrect() {
-        assertEquals("Addition is incorrect",
+        assertNotEquals("Addition is incorrect",
                 4, 2 + 3);
     }
 }
