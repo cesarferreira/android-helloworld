@@ -1,1 +1,11 @@
 include ':app'
+
+buildCache {
+    local {
+        enabled = true
+    }
+    remote(HttpBuildCache) {
+        url = System.getProperty("cache.url", "http://localhost:8885/cache/")
+        push = true
+    }
+}
